@@ -11,7 +11,7 @@ import java.util.List;
 import java.util.concurrent.ArrayBlockingQueue;
 import java.util.concurrent.BlockingQueue;
 
-public class ConnectionManager {
+public final class ConnectionManager {
 
     private static final String URL = "db.url";
     private static final String USER = "db.username";
@@ -26,8 +26,7 @@ public class ConnectionManager {
         initConnectionPool();
     }
 
-
-    public ConnectionManager() {
+    private ConnectionManager() {
     }
 
     private static void initConnectionPool() {
