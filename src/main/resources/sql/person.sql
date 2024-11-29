@@ -7,5 +7,3 @@ CREATE TABLE person
     last_name     VARCHAR(127),
     date_of_birth DATE
 );
-
-DROP TABLE person;

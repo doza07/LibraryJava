@@ -11,14 +11,18 @@ public class LibraryRunner {
         SELECT * FROM Person
         """;
 
-        try (var connection = ConnectionManager.openConnection()) {
-            var statement = connection.createStatement();
-            var result = statement.executeQuery(sql);
-            while (result.next()) {
-                System.out.println(result.getLong("id"));
-            }
-        } catch (SQLException e) {
-            throw new RuntimeException(e);
+        try (var connection = ConnectionManager.getConnection()) {
+
+            var prepareStatement = connection.prepareStatement(sql);
+            prepareStatement.setFetchSize(50);
+            prepareStatement.setMaxRows(100);
+            prepareStatement.setQueryTimeout(10);
+
+            var result = prepareStatement.executeQuery();
+            System.out.println(result);
+
+        } catch (SQLException ex) {
+            throw new RuntimeException(ex);
         }
     }
 }
