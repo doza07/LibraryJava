@@ -8,6 +8,11 @@
   <name>LibraryJava Maven Webapp</name>
   <url>http://maven.apache.org</url>
   <dependencies>
+    <dependency>
+      <groupId>javax.servlet</groupId>
+      <artifactId>jstl</artifactId>
+      <version>1.2</version>
+    </dependency>
     <!-- https://mvnrepository.com/artifact/org.apache.tomcat/tomcat-jasper -->
     <dependency>
       <groupId>org.apache.tomcat</groupId>

@@ -1,5 +1,6 @@
 package com.doza.servlet;
 
+import com.doza.dto.BookDto;
 import com.doza.service.BookService;
 import jakarta.servlet.ServletException;
 import jakarta.servlet.annotation.WebServlet;
@@ -9,6 +10,8 @@ import jakarta.servlet.http.HttpServletResponse;
 
 import java.io.IOException;
 import java.io.PrintWriter;
+import java.util.List;
+import java.util.stream.Collectors;
 
 @WebServlet("/library")
 public class LibraryServlet extends HttpServlet {
@@ -17,24 +20,12 @@ public class LibraryServlet extends HttpServlet {
 
     @Override
     protected void doGet(HttpServletRequest req, HttpServletResponse resp) throws ServletException, IOException {
-        resp.setContentType("text/html");
-        resp.setCharacterEncoding("UTF-8");
+        List<BookDto> allBooks = bookService.findAllBooks();
+        req.setAttribute("library", allBooks);
+        req.getSession().setAttribute("libraryMap", allBooks.stream().collect(Collectors
+                .toMap(BookDto::getId, BookDto::getDescription)));
 
 
-        try (PrintWriter writer = resp.getWriter()) {
-            writer.write("<h1>Library</h1>");
-            writer.write("<ul>");
-            bookService.findAllBooks().forEach(bookDto -> {
-                    writer.write("""
-                            <li>
-                            <a href="/book?bookId=%d">%s</a>
-                            </li>
-                            """.formatted(bookDto.getId(), bookDto.getDescription()));
-            });
-            writer.write("</ul>");
-
-        }catch (Exception e) {
-            e.printStackTrace();
-        }
+        req.getRequestDispatcher("/library.jsp").forward(req, resp);
     }
 }
