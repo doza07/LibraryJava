@@ -18,19 +18,16 @@
   </label><br>
   <label for="passwordId">Password:
     <input type="password" name="password" id="passwordId">
-  </label><br>
-  <label for="role">Role:
-    <select name="role" id="role">
-      <c:forEach var="role" items="${requestScope.roles}">
-        <option value="${role}">${role}</option>
-      </c:forEach>
-    </select>
-  </label><br>
-  <c:forEach var="gender" items="${requestScope.genders}">
-    <input type="radio" name="gender" value="${gender}"> ${gender}
-  </c:forEach>
+  </label>
   <br>
   <button type="submit">Send</button>
+  <c:if test="${not empty requestScope.errors}">
+    <div style="color: red">
+  <c:forEach var="error" items="${requestScope.errors}">
+    <span>${error.message}</span>
+  </c:forEach>
+</div>
+  </c:if>>
 </form>
 </body>
 </html>

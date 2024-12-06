@@ -1,10 +1,12 @@
-package com.doza.entity;
+package com.doza.dto;
+
+import com.doza.entity.Role;
 
 import java.time.LocalDate;
 
-public class Person {
 
-    private long id;
+public class CreatePersonDto {
+
     private String email;
     private String pass;
     private String firstName;
@@ -12,20 +14,12 @@ public class Person {
     private LocalDate dateOfBirth;
     private Role role;
 
-    public Person(String email, String pass, String first_name, String last_name, LocalDate date_of_birth) {
+    public CreatePersonDto(String email, String pass, String firstName, String lastName, LocalDate dateOfBirth) {
         this.email = email;
         this.pass = pass;
-        this.firstName = first_name;
-        this.lastName = last_name;
-        this.dateOfBirth = date_of_birth;
-    }
-
-    public long getId() {
-        return id;
-    }
-
-    public void setId(long id) {
-        this.id = id;
+        this.firstName = firstName;
+        this.lastName = lastName;
+        this.dateOfBirth = dateOfBirth;
     }
 
     public String getEmail() {
@@ -48,7 +42,7 @@ public class Person {
         return firstName;
     }
 
-    public void setFirst_name(String firstName) {
+    public void setFirstName(String firstName) {
         this.firstName = firstName;
     }
 
@@ -60,11 +54,11 @@ public class Person {
         this.lastName = lastName;
     }
 
-    public LocalDate getDateOfBirth() {
+    public String getDateOfBirth() {
         return dateOfBirth;
     }
 
-    public void setDate_of_birth(LocalDate dateOfBirth) {
+    public void setDateOfBirth(LocalDate dateOfBirth) {
         this.dateOfBirth = dateOfBirth;
     }
 
@@ -78,13 +72,12 @@ public class Person {
 
     @Override
     public String toString() {
-        return "Person{" +
-               "id=" + id +
-               ", email='" + email + '\'' +
+        return "CreatePersonDto{" +
+               "email='" + email + '\'' +
                ", pass='" + pass + '\'' +
-               ", first_name='" + firstName + '\'' +
-               ", last_name='" + lastName + '\'' +
-               ", date_of_birth=" + dateOfBirth +
+               ", firstName='" + firstName + '\'' +
+               ", lastName='" + lastName + '\'' +
+               ", dateOfBirth=" + dateOfBirth +
                '}';
     }
 }

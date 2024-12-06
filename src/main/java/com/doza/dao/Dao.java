@@ -1,5 +1,6 @@
 package com.doza.dao;
 
+import java.sql.SQLException;
 import java.util.List;
 import java.util.Optional;
 
@@ -9,7 +10,7 @@ public interface Dao <K, T> {
 
     Optional<T> findById(K id);
 
-    T save(T entity);
+    T save(T entity) throws SQLException;
 
     T update(T entity);
 
