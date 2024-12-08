@@ -1,4 +1,4 @@
-package com.doza.servlet;
+package com.doza.servlet.fix;
 
 import jakarta.servlet.ServletException;
 import jakarta.servlet.annotation.WebServlet;

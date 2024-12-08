@@ -1,14 +1,13 @@
 package com.doza.validator;
 
-import com.doza.dto.CreatePersonDto;
-import com.doza.util.LocalDateFormatter;
+import com.doza.dto.PersonDto;
 
-public class CreatePersonValidator implements Validator<CreatePersonDto>{
+public class CreatePersonValidator implements Validator<PersonDto>{
 
     public static final CreatePersonValidator INSTANCE = new CreatePersonValidator();
 
     @Override
-    public ValidationResult isValid(CreatePersonDto createPersonDto) {
+    public ValidationResult isValid(PersonDto createPersonDto) {
         ValidationResult validationResult = new ValidationResult();
         if (createPersonDto.getFirstName() == null || createPersonDto.getFirstName().trim().equals("")) {
             validationResult.addError(new Error("1", "First name is required"));
@@ -18,8 +17,8 @@ public class CreatePersonValidator implements Validator<CreatePersonDto>{
             validationResult.addError(new Error("3", "Email is required"));
         } else if (createPersonDto.getPass() == null || createPersonDto.getPass().trim().equals("")) {
             validationResult.addError(new Error("4", "Password is required"));
-        } else if (!LocalDateFormatter.isValid(createPersonDto.getDateOfBirth()) ) {
-            validationResult.addError(new Error("5", "Date of birth is invalid"));
+//        } else if (!LocalDateFormatter.format(createPersonDto.getDateOfBirth()) ) {
+//            validationResult.addError(new Error("5", "Date of birth is invalid"));
         }
         return validationResult;
     }

@@ -1,6 +1,6 @@
-package com.doza.servlet;
+package com.doza.servlet.fix;
 
-import com.doza.dto.CreatePersonDto;
+import com.doza.dto.PersonDto;
 import com.doza.exeption.ValidationException;
 import com.doza.service.PersonService;
 import jakarta.servlet.ServletException;
@@ -12,7 +12,6 @@ import jakarta.servlet.http.HttpServletResponse;
 import java.io.IOException;
 import java.time.LocalDate;
 import java.time.format.DateTimeFormatter;
-import java.util.List;
 
 @WebServlet("/registration")
 public class RegistrationServlet extends HttpServlet {
@@ -26,7 +25,7 @@ public class RegistrationServlet extends HttpServlet {
 
     @Override
     protected void doPost(HttpServletRequest req, HttpServletResponse resp) throws ServletException, IOException {
-        CreatePersonDto personDto = new CreatePersonDto(
+        PersonDto personDto = new PersonDto(
                 req.getParameter("email"),
                 req.getParameter("password"),
                 req.getParameter("firstName"),
