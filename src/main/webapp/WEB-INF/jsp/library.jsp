@@ -1,18 +1,18 @@
-<%@ taglib uri="http://java.sun.com/jsp/jstl/core" prefix="c" %>
-<%@ page contentType="text/html;charset=UTF-8" language="java" %>
+<%@ page contentType="text/html;charset=UTF-8" pageEncoding="UTF-8" %>
+<%@ taglib prefix="c" uri="http://java.sun.com/jsp/jstl/core" %>
+<%@ taglib prefix="fn" uri="http://java.sun.com/jsp/jstl/functions" %>
 <html>
 <head>
-    <title>Library</title>
+    <title>Title</title>
 </head>
 <body>
-<%@include file="fix/header.jsp"%>
-<div>
-    <c:forEach var="item" items="${bookList}">
-        <div>
-            <span>${item.name}</span>
-        </div>
+<h1>Список перелетов:</h1>
+<ul>
+    <c:forEach var="book" items="${requestScope.booksList}">
+        <li>
+            <a href="${pageContext.request.contextPath}/book?bookId=${book.id}">${book.description}</a>
+        </li>
     </c:forEach>
-</div>
-<%@include file="fix/footer.jsp"%>
+</ul>
 </body>
 </html>

@@ -1,6 +1,5 @@
 package com.doza.servlet;
 
-import com.doza.dto.BookDto;
 import com.doza.service.BookService;
 import com.doza.util.JspHelper;
 import com.doza.util.UrlPath;
@@ -11,9 +10,6 @@ import jakarta.servlet.http.HttpServletRequest;
 import jakarta.servlet.http.HttpServletResponse;
 
 import java.io.IOException;
-import java.io.PrintWriter;
-import java.util.List;
-import java.util.stream.Collectors;
 
 @WebServlet(UrlPath.LIBRARY)
 public class LibraryServlet extends HttpServlet {
@@ -22,8 +18,9 @@ public class LibraryServlet extends HttpServlet {
 
     @Override
     protected void doGet(HttpServletRequest req, HttpServletResponse resp) throws ServletException, IOException {
-        List<BookDto> allBooks = bookService.findAllBooks();
-        req.setAttribute("bookList", allBooks);
-        req.getRequestDispatcher(JspHelper.getPath("library")).forward(req, resp);
+        req.setAttribute("booksList", bookService.findAllBooks());
+
+        req.getRequestDispatcher(JspHelper.getPath("library"))
+                .forward(req, resp);
     }
 }
