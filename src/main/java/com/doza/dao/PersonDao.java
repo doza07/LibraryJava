@@ -13,6 +13,8 @@ public class PersonDao implements Dao<Long, Person> {
     private static final String SAVE_SQL = """
             INSERT INTO person (email, pass, first_name, last_name, date_of_birth) VALUES  (?, ?, ?, ?, ?);
             """;
+    private static final String GET_BY_EMAIL_AND_PASSWORD_SQL =
+            "SELECT * FROM person WHERE email = ? AND pass = ?";
 
     @Override
     public List<Person> findAll() {
@@ -54,6 +56,35 @@ public class PersonDao implements Dao<Long, Person> {
     @Override
     public boolean delete(Person entity) {
         return false;
+    }
+
+    public Optional<Person> findByEmailAndPassword(String email, String password) {
+        try (var connection = ConnectionManager.getConnection();
+             var preparedStatement = connection.prepareStatement(GET_BY_EMAIL_AND_PASSWORD_SQL)) {
+            preparedStatement.setString(1, email);
+            preparedStatement.setString(2, password);
+
+            var resultSet = preparedStatement.executeQuery();
+            Person person = null;
+            if (resultSet.next()) {
+                person = buildEntity(resultSet);
+            }
+
+            return Optional.ofNullable(person);
+        } catch (SQLException e) {
+            throw new RuntimeException(e);
+        }
+    }
+
+    private Person buildEntity(ResultSet resultSet) throws java.sql.SQLException {
+        return new Person(
+                resultSet.getObject("id", Integer.class),
+                resultSet.getObject("email", String.class),
+                resultSet.getObject("password", String.class),
+                resultSet.getObject("first_name", String.class),
+                resultSet.getObject("last_name", String.class),
+                resultSet.getObject("birthday", Date.class).toLocalDate()
+        );
     }
 
     public static PersonDao getInstance() {

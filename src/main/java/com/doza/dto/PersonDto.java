@@ -5,7 +5,7 @@ import com.doza.entity.Role;
 import java.time.LocalDate;
 
 
-public class PersonDto {
+public final class PersonDto {
 
     private String email;
     private String pass;
@@ -14,12 +14,9 @@ public class PersonDto {
     private LocalDate dateOfBirth;
     private Role role;
 
-    public PersonDto(String email, String pass, String firstName, String lastName, LocalDate dateOfBirth) {
+    public PersonDto(String email, String pass) {
         this.email = email;
         this.pass = pass;
-        this.firstName = firstName;
-        this.lastName = lastName;
-        this.dateOfBirth = dateOfBirth;
     }
 
     public String getEmail() {

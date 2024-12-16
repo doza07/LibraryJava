@@ -12,6 +12,15 @@ public class Person {
     private LocalDate dateOfBirth;
     private Role role;
 
+    public Person(long id, String email, String pass, String firstName, String lastName, LocalDate dateOfBirth) {
+        this.id = id;
+        this.email = email;
+        this.pass = pass;
+        this.firstName = firstName;
+        this.lastName = lastName;
+        this.dateOfBirth = dateOfBirth;
+    }
+
     public Person(String email, String pass, String first_name, String last_name, LocalDate date_of_birth) {
         this.email = email;
         this.pass = pass;
@@ -19,6 +28,12 @@ public class Person {
         this.lastName = last_name;
         this.dateOfBirth = date_of_birth;
     }
+
+    public Person(String email, String pass) {
+        this.email = email;
+        this.pass = pass;
+    }
+
 
     public long getId() {
         return id;

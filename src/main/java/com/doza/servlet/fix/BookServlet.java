@@ -1,4 +1,4 @@
-package com.doza.servlet;
+package com.doza.servlet.fix;
 
 import com.doza.dto.BookDto;
 import com.doza.service.BookService;

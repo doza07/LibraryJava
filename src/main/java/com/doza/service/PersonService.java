@@ -2,28 +2,35 @@ package com.doza.service;
 
 import com.doza.dao.PersonDao;
 import com.doza.dto.PersonDto;
-import com.doza.entity.Person;
 import com.doza.exeption.ValidationException;
-import com.doza.mapper.CreatePersonMapper;
-import com.doza.validator.CreatePersonValidator;
-import com.doza.validator.ValidationResult;
+import com.doza.mapper.PersonDtoToPerson;
+import com.doza.mapper.PersonToPersonDto;
+import com.doza.validator.PersonValidator;
+
+import java.util.Optional;
 
 public class PersonService {
 
     private static final PersonService INSTANCE = new PersonService();
-    private final CreatePersonValidator createPersonValidator = CreatePersonValidator.getInstance();
+    private final PersonValidator personValidator = PersonValidator.getInstance();
     private final PersonDao personDao = PersonDao.getInstance();
-    private final CreatePersonMapper createPersonMapper = CreatePersonMapper.getInstance();
+    private final PersonDtoToPerson personDtoToPerson = PersonDtoToPerson.getInstance();
+    private final PersonToPersonDto personToPersonDto = PersonToPersonDto.getInstance();
 
-    public Long createPerson(PersonDto createPersonDto) {
-        ValidationResult valid = createPersonValidator.isValid(createPersonDto);
+    public Long createPerson(PersonDto personDto) {
+        var valid = personValidator.isValid(personDto);
         if (!valid.isValid()) {
             throw new ValidationException(valid.getErrors());
         }
-        Person person = createPersonMapper.mapFrom(createPersonDto);
-        personDao.save(person);
+        var personEntity = personDtoToPerson.mapFrom(personDto);
+        personDao.save(personEntity);
 
-        return person.getId();
+        return personEntity.getId();
+    }
+
+    public Optional<PersonDto> login(String email, String password) {
+        return personDao.findByEmailAndPassword(email, password)
+                .map(personToPersonDto::mapFrom);
     }
 
     public static PersonService getInstance() {
